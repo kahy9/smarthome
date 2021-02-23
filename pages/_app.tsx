@@ -1,14 +1,24 @@
-import { AppProps } from 'next/app'
-import { ApolloProvider } from '@apollo/client'
-import { useApollo } from '../lib/apollo'
-import '../styles/globals.css'
+import React from 'react'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import SideBar from '../components/SideBar';
 
-export default function App({ Component, pageProps }: AppProps) {
-  const apolloClient = useApollo(pageProps.initialApolloState)
+import Home from './Home';
+import Walks from './Home';
+import Informations from './Home';
 
+const _app: React.FC = () => {
   return (
-    <ApolloProvider client={apolloClient}>
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <>
+      <Router>
+        <SideBar />
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/reports' component={Walks} />
+          <Route path='/products' component={Informations} />
+        </Switch>
+      </Router>
+    </>
   )
 }
+
+export default _app
